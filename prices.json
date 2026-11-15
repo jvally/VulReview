@@ -1,0 +1,4 @@
+{
+  "_comment": "USD per million tokens. claude-haiku-5-5 list price for prompts up to 100K tokens, from a reference list dated 2026-11-03; check current pricing before relying on it.",
+  "claude-haiku-5-5": {"input_per_mtok": 0.10, "output_per_mtok": 0.50}
+}

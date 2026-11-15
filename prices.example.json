@@ -1,0 +1,4 @@
+{
+  "_comment": "Copy to prices.json and fill in USD per million tokens for the model ID(s) you run. If prices.json is absent or a model is not listed, only tokens and latency are reported.",
+  "your-model-id": {"input_per_mtok": 0.0, "output_per_mtok": 0.0}
+}
