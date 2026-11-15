@@ -51,4 +51,37 @@ show `n/a` and only tokens and latency are reported (`results/cost_log.json`).
 because its CWE label is a judgement call. Five candidates were left out as uncertain and are listed in the same
 file with the reason.
 
-RESULTS_PLACEHOLDER
+## Results
+
+**Status: only the Semgrep configuration has been run.** The LLM and hybrid runs need an Anthropic API key,
+which was not available in the build environment, so their rows are not reported here. Nothing below is
+estimated or simulated.
+
+| Configuration | Findings | Truth found | Precision | Recall | Total cost | Cost / TP | Seconds / file |
+|---|---|---|---|---|---|---|---|
+| semgrep | 4 | 3/10 | 1.00 | 0.30 | n/a | n/a | 0.35 |
+| llm | not run | | | | | | |
+| hybrid | not run | | | | | | |
+
+Semgrep 1.185.0 with `--config auto` found both SQL injections (T01 `routes/login.ts:34`, T02
+`routes/search.ts:23`) and the `eval` in `routes/userProfile.ts:65` (T07, reported by two rules). It reported
+nothing for the three NoSQL `$where`/query-object injections, the `vm` code execution, the SSRF, the zip-slip
+write or the missing ownership check. Full detail: `results/results.md`.
+
+To complete the benchmark, set the key and run the three commands after the Semgrep step in "How to run",
+then replace this section with the table from `results/results.md`, two or three example findings from
+`results/*_findings.json`, and the comparison of where each approach wins and whether hybrid beats either alone.
+
+## Limitations
+
+- **Small sample**: ten truth entries in ten files; one extra hit or miss moves recall by 0.10.
+- **Precision is understated for the LLM modes**: several files contain real issues beyond their one truth
+  entry (for example reflected XSS in `trackOrder.ts`), and a correct finding on those counts as a false positive.
+- **Line-matching heuristic**: ±5 lines plus CWE family can credit a finding that is near the right line for the
+  wrong reason, or miss a correct finding reported against a different line or an unlisted CWE.
+- **Single run**: LLM output varies between runs and that variance is not measured.
+- **Chunking is untested end to end**: every in-scope file is under 150 lines, so each is one chunk; multi-chunk
+  behaviour is covered by unit tests only.
+- **Truth selection bias**: entries were chosen from documented challenges with a clear line and CWE, which
+  favours pattern-shaped bugs.
+- **Prices**: `prices.json` holds a list price from a dated reference, not a billed amount.
