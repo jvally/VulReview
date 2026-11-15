@@ -1,0 +1,92 @@
+{
+  "line_tolerance": 5,
+  "truth_entries": 10,
+  "not_run": [
+    "llm",
+    "hybrid"
+  ],
+  "configurations": {
+    "semgrep": {
+      "findings": 4,
+      "true_positive_findings": 4,
+      "truth_found": [
+        "T01",
+        "T02",
+        "T07"
+      ],
+      "truth_missed": [
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T08",
+        "T09",
+        "T10"
+      ],
+      "precision": 1.0,
+      "recall": 0.3,
+      "true_positives": [
+        {
+          "file": "routes/login.ts",
+          "line_start": 34,
+          "line_end": 34,
+          "cwe": "CWE-89",
+          "severity": "high",
+          "explanation": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+          "suggested_fix": "No autofix provided; see Semgrep rule javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection.",
+          "rule_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+          "truth_id": "T01"
+        },
+        {
+          "file": "routes/search.ts",
+          "line_start": 23,
+          "line_end": 23,
+          "cwe": "CWE-89",
+          "severity": "high",
+          "explanation": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+          "suggested_fix": "No autofix provided; see Semgrep rule javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection.",
+          "rule_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+          "truth_id": "T02"
+        },
+        {
+          "file": "routes/userProfile.ts",
+          "line_start": 65,
+          "line_end": 65,
+          "cwe": "CWE-95",
+          "severity": "medium",
+          "explanation": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+          "suggested_fix": "No autofix provided; see Semgrep rule javascript.browser.security.eval-detected.eval-detected.",
+          "rule_id": "javascript.browser.security.eval-detected.eval-detected",
+          "truth_id": "T07"
+        },
+        {
+          "file": "routes/userProfile.ts",
+          "line_start": 65,
+          "line_end": 65,
+          "cwe": "CWE-95",
+          "severity": "high",
+          "explanation": "Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.",
+          "suggested_fix": "No autofix provided; see Semgrep rule javascript.lang.security.audit.code-string-concat.code-string-concat.",
+          "rule_id": "javascript.lang.security.audit.code-string-concat.code-string-concat",
+          "truth_id": "T07"
+        }
+      ],
+      "false_positives": [],
+      "cost": {
+        "total_cost_usd": null,
+        "cost_per_true_positive_usd": null,
+        "seconds_per_file": 0.352
+      }
+    }
+  },
+  "comparison": {
+    "semgrep": {
+      "only_this": [
+        "T01",
+        "T02",
+        "T07"
+      ],
+      "missed_but_found_by": {}
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "target": "OWASP Juice Shop",
+  "commit": "266448aba68cd8ba5915f526a128da4fa7bc3f9f",
+  "note": "Line numbers verified by reading the cloned commit. 'challenge' is the key in data/static/challenges.yml. Entries 1-3 carry upstream vuln-code-snippet vuln-line markers.",
+  "entries": [
+    {"id": "T01", "file": "routes/login.ts", "line_start": 34, "line_end": 34, "cwe": "CWE-89", "challenge": "loginAdminChallenge", "confidence": "high", "note": "SQL built by string interpolation of req.body.email"},
+    {"id": "T02", "file": "routes/search.ts", "line_start": 23, "line_end": 23, "cwe": "CWE-89", "challenge": "unionSqlInjectionChallenge", "confidence": "high", "note": "SQL built by string interpolation of the search criteria"},
+    {"id": "T03", "file": "routes/updateProductReviews.ts", "line_start": 18, "line_end": 20, "cwe": "CWE-943", "challenge": "noSqlReviewsChallenge", "confidence": "high", "note": "Unvalidated req.body.id used as a query object with multi: true"},
+    {"id": "T04", "file": "routes/trackOrder.ts", "line_start": 15, "line_end": 18, "cwe": "CWE-943", "challenge": "noSqlOrdersChallenge", "confidence": "high", "note": "Request parameter concatenated into a $where expression"},
+    {"id": "T05", "file": "routes/showProductReviews.ts", "line_start": 31, "line_end": 36, "cwe": "CWE-943", "challenge": "noSqlCommandChallenge", "confidence": "high", "note": "Request parameter concatenated into a $where expression"},
+    {"id": "T06", "file": "routes/b2bOrder.ts", "line_start": 19, "line_end": 23, "cwe": "CWE-94", "challenge": "rceChallenge", "confidence": "high", "note": "User-supplied orderLinesData evaluated in a vm context"},
+    {"id": "T07", "file": "routes/userProfile.ts", "line_start": 58, "line_end": 65, "cwe": "CWE-95", "challenge": "sstiChallenge", "confidence": "high", "note": "eval() of code taken from the stored username"},
+    {"id": "T08", "file": "routes/profileImageUrlUpload.ts", "line_start": 19, "line_end": 24, "cwe": "CWE-918", "challenge": "ssrfChallenge", "confidence": "high", "note": "Server fetches an arbitrary user-supplied URL"},
+    {"id": "T09", "file": "routes/fileUpload.ts", "line_start": 29, "line_end": 34, "cwe": "CWE-22", "challenge": "fileWriteChallenge", "confidence": "high", "note": "Zip entry path written without containment (zip slip)"},
+    {"id": "T10", "file": "routes/basket.ts", "line_start": 18, "line_end": 19, "cwe": "CWE-639", "challenge": "basketAccessChallenge", "confidence": "medium", "note": "FLAGGED: vulnerability is certain (no ownership check on basket id) but the CWE label is a judgement call (639 vs 284/285/862); all are in the same matching family"}
+  ],
+  "excluded_candidates": [
+    {"file": "routes/changePassword.ts", "line": 39, "challenge": "changePasswordBenderChallenge", "reason": "CWE debatable (620 vs 306 vs 352)"},
+    {"file": "routes/dataErasure.ts", "lines": "103-109", "challenge": "lfrChallenge", "reason": "CWE ambiguous (98, 22 or 73)"},
+    {"file": "routes/fileServer.ts", "lines": "26-32", "challenge": "nullByteChallenge", "reason": "root cause is in lib/, outside scope"},
+    {"file": "routes/redirect.ts", "challenge": "redirectChallenge", "reason": "root cause is in lib/insecurity.ts, outside scope"},
+    {"file": "routes/fileUpload.ts", "challenge": "xxeFileDisclosureChallenge", "reason": "parser configuration is in lib/xml, outside scope"}
+  ]
+}
