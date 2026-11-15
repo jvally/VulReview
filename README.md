@@ -1,4 +1,4 @@
-# LLM security code reviewer vs Semgrep
+# VulReview: LLM security code reviewer vs Semgrep
 
 A small CLI that reviews source files for vulnerabilities with the Anthropic API and benchmarks three
 configurations against hand-verified ground truth on [OWASP Juice Shop](https://github.com/juice-shop/juice-shop),
